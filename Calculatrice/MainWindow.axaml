@@ -1,0 +1,130 @@
+<!-- Interface utilisateur de la calculatrice
+     Inspirée du design de la calculatrice iOS avec un thème sombre -->
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Calculatrice"
+        mc:Ignorable="d" 
+        d:DesignWidth="400" 
+        d:DesignHeight="600"
+        x:Class="Calculatrice.MainWindow"
+        x:DataType="vm:MainWindow"
+        Title="Calculatrice"
+        Background="Black">
+
+    <!-- Layout principal : écran (2*) et grille de boutons (8*) -->
+    <Grid RowDefinitions="2*,8*">
+        <!-- Zone d'affichage -->
+        <!-- Le TextBlock utilise le binding pour afficher le résultat -->
+        <TextBlock Grid.Row="0" 
+                   Text="{Binding DisplayText}" 
+                   FontSize="60"
+                   Foreground="White"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Margin="20,20,30,0"/>
+        
+        <!-- Grille des boutons : 4 colonnes et 5 lignes -->
+        <!-- Chaque bouton est stylisé selon sa fonction (nombre, opérateur, spécial) -->
+        <Grid Grid.Row="1" 
+              Name="ButtonGrid"
+              ColumnDefinitions="*,*,*,*" 
+              RowDefinitions="*,*,*,*,*">
+            
+            <!-- Première rangée : boutons de fonction spéciale -->
+            <Button Grid.Row="0" Grid.Column="0" Content="AC" 
+                    Classes="CalculatorButton Special"/>
+            <Button Grid.Row="0" Grid.Column="1" Content="+/-" 
+                    Classes="CalculatorButton Special"/>
+            <Button Grid.Row="0" Grid.Column="2" Content="%" 
+                    Classes="CalculatorButton Special"/>
+            <Button Grid.Row="0" Grid.Column="3" Content="÷" 
+                    Classes="CalculatorButton Operator"/>
+            
+            <!-- Deuxième rangée : 7, 8, 9, × -->
+            <Button Grid.Row="1" Grid.Column="0" Content="7" 
+                    Classes="CalculatorButton Number"/>
+            <Button Grid.Row="1" Grid.Column="1" Content="8" 
+                    Classes="CalculatorButton Number"/>
+            <Button Grid.Row="1" Grid.Column="2" Content="9" 
+                    Classes="CalculatorButton Number"/>
+            <Button Grid.Row="1" Grid.Column="3" Content="×" 
+                    Classes="CalculatorButton Operator"/>
+            
+            <!-- Troisième rangée : 4, 5, 6, - -->
+            <Button Grid.Row="2" Grid.Column="0" Content="4" 
+                    Classes="CalculatorButton Number"/>
+            <Button Grid.Row="2" Grid.Column="1" Content="5" 
+                    Classes="CalculatorButton Number"/>
+            <Button Grid.Row="2" Grid.Column="2" Content="6" 
+                    Classes="CalculatorButton Number"/>
+            <Button Grid.Row="2" Grid.Column="3" Content="-" 
+                    Classes="CalculatorButton Operator"/>
+            
+            <!-- Quatrième rangée : 1, 2, 3, + -->
+            <Button Grid.Row="3" Grid.Column="0" Content="1" 
+                    Classes="CalculatorButton Number"/>
+            <Button Grid.Row="3" Grid.Column="1" Content="2" 
+                    Classes="CalculatorButton Number"/>
+            <Button Grid.Row="3" Grid.Column="2" Content="3" 
+                    Classes="CalculatorButton Number"/>
+            <Button Grid.Row="3" Grid.Column="3" Content="+" 
+                    Classes="CalculatorButton Operator"/>
+            
+            <!-- Cinquième rangée : 0 (double largeur), ., = -->
+            <!-- Le bouton 0 utilise ColumnSpan pour occuper deux colonnes -->
+            <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" 
+                    Content="0" Classes="CalculatorButton Number ZeroButton"
+                    HorizontalAlignment="Stretch"/>
+            <Button Grid.Row="4" Grid.Column="2" Content="." 
+                    Classes="CalculatorButton Number"/>
+            <Button Grid.Row="4" Grid.Column="3" Content="=" 
+                    Classes="CalculatorButton Operator"/>
+        </Grid>
+    </Grid>
+    
+    <!-- Styles des boutons -->
+    <Window.Styles>
+        <!-- Style de base pour tous les boutons -->
+        <Style Selector="Button.CalculatorButton">
+            <!-- Dimensions et aspects visuels communs -->
+            <Setter Property="Height" Value="75"/>
+            <Setter Property="Width" Value="75"/>
+            <Setter Property="CornerRadius" Value="37.5"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        
+        <!-- Style spécifique pour le bouton zéro -->
+        <Style Selector="Button.ZeroButton">
+            <!-- Le bouton zéro est plus large et aligné à gauche -->
+            <Setter Property="Width" Value="154"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="30,0,0,0"/>
+        </Style>
+        
+        <!-- Style pour les boutons numériques -->
+        <Style Selector="Button.Number">
+            <!-- Fond gris foncé avec texte blanc -->
+            <Setter Property="Background" Value="#333333"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        
+        <!-- Style pour les boutons d'opération -->
+        <Style Selector="Button.Operator">
+            <!-- Fond orange avec texte blanc -->
+            <Setter Property="Background" Value="#FF9F0A"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        
+        <!-- Style pour les boutons spéciaux (AC, +/-, %) -->
+        <Style Selector="Button.Special">
+            <!-- Fond gris clair avec texte noir -->
+            <Setter Property="Background" Value="#A5A5A5"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+    </Window.Styles>
+</Window>
