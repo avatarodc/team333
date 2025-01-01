@@ -4,6 +4,8 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
+
+//ceci est une calculatrice
 namespace Calculatrice
 {
     /// <summary>
